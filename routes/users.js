@@ -11,8 +11,8 @@ const {
 
 
 routes.get("/", getUsers)
-routes.get("/user", getUser)
-routes.patch("/", updateUser)
-routes.delete("/", deleteUser)
+routes.get("/:id", getUser)
+routes.patch("/:id", updateUser)
+routes.delete("/:id", deleteUser)
 
 module.exports = routes

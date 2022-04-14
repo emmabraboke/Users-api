@@ -19,6 +19,11 @@ const error = (err,req,res,next)=>{
         return res.status(StatusCodes.BAD_REQUEST).json(err)
       }
    
+    if (err.name === "TokenExpiredError" || err.name === "JsonWebTokenError"){
+        return res.status(500).json(err)
+    }
+
+   
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json("something went wrong")
 }
 
