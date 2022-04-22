@@ -1,0 +1,302 @@
+openapi: 3.0.0
+info:
+  title: User API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://user-api-03.herokuapp.com
+  variables: {}
+paths:
+  /register:
+    post:
+      tags:
+      - Login
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+            example:
+              name: Timi
+              email: timi@gmal.com
+              password: '1235'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /login:
+    post:
+      tags:
+      - Login
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+            example:
+              email: timi@gmal.com
+              password: '1235'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /users:
+    get:
+      tags:
+      - Users
+      summary: Get Users
+      operationId: GetUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - Users
+      summary: Get User
+      operationId: GetUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+      - Users
+      summary: Update User
+      operationId: UpdateUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+            example:
+              email: emmanuel@gmail.com
+              name: emmanuel
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+      - Users
+      summary: Delete User
+      operationId: DeleteUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/posts:
+    get:
+      tags:
+      - Posts
+      summary: Get Posts
+      operationId: GetPosts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+      - Posts
+      summary: Create Post
+      operationId: CreatePost
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePostRequest'
+            example:
+              post: " I'm a product designer"
+              retweet: 1000
+              like: '20000'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/posts/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - Posts
+      summary: Get Post
+      operationId: GetPost
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  
+    patch:
+      tags:
+      - Posts
+      summary: Update Post
+      operationId: UpdatePost
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePostRequest'
+            example:
+              retweet: 100
+              like: 500
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  
+    delete:
+      tags:
+      - Posts
+      summary: Delete Post
+      operationId: DeletePost
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Timi
+        email: timi@gmal.com
+        password: '1235'
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: timi@gmal.com
+        password: '1235'
+    UpdateUserRequest:
+      title: UpdateUserRequest
+      required:
+      - email
+      - name
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+      example:
+        email: emmanuel@gmail.com
+        name: emmanuel
+    CreatePostRequest:
+      title: CreatePostRequest
+      required:
+      - post
+      - retweet
+      - like
+      type: object
+      properties:
+        post:
+          type: string
+        retweet:
+          type: integer
+          format: int32
+        like:
+          type: string
+      example:
+        post: " I'm a product designer"
+        retweet: 1000
+        like: '20000'
+    UpdatePostRequest:
+      title: UpdatePostRequest
+      required:
+      - retweet
+      - like
+      type: object
+      properties:
+        retweet:
+          type: integer
+          format: int32
+        like:
+          type: integer
+          format: int32
+      example:
+        retweet: 100
+        like: 500
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+- httpBearer: []
+tags:
+- name: Login
+  description: ''
+- name: Users
+  description: ''
+- name: Posts
+  description: ''

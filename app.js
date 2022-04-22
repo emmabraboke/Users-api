@@ -9,10 +9,15 @@ const notFound = require("./middlewares/notFound")
 const connectdb = require("./connect/connect")
 const error = require("./middlewares/error")
 const authorization = require("./middlewares/authorization")
+
 const helmet = require('helmet');
 const cors = require('cors');
 const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
+
+const swagger= require('swagger-ui-express');
+const yaml = require('yamljs');
+const swaggerDoc= yaml.load('./swagger.yaml');
 
 //middleware
 
@@ -33,14 +38,21 @@ app.use(cors());
 app.use(xss());
 
 
+
 //routes
 app.use(login)
 app.use("/users/posts",authorization,posts)
 app.use("/users",authorization,users)
+
+app.use('/documentation', swagger.serve, swagger.setup(swaggerDoc));
 app.get("/",(req,res)=>{
     res.send(`
-    <h3>User API</h3>`)
+    <h3>User API</h3>
+    <p> API <a href="/documentation"> documentation</a> </p>
+    `)
 })
+
+
 app.use(notFound)
 app.use(error)
 
